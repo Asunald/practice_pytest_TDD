@@ -1,4 +1,4 @@
-name: Create Release
+name: Release
 
 on:
   push:
@@ -38,34 +38,29 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
-          name: PyTest TDD Practice ${{ steps.tag.outputs.tag }}
+          name: Python Practice ${{ steps.tag.outputs.tag }}
           body: |
-            ## 🎯 PyTest TDD Practice Release ${{ steps.tag.outputs.tag }}
+            ## Python Practice Release ${{ steps.tag.outputs.tag }}
             
-            ### ✅ 测试状态
-            所有 6 个测试用例通过！
+            ### Features
+            - List operations: Find duplicates
+            - Set operations: Difference calculation  
+            - Tuple operations: Element squaring
+            - Dictionary operations: Merge with sum
+            - Object-oriented: ToDo list class
+            - Function operations: Flatten nested lists
             
-            ### 📚 项目内容
-            - **列表练习**：查找重复元素 `find_duplicates()`
-            - **集合练习**：差集运算 `difference_set()`
-            - **元组练习**：元素平方 `square_tuple()`
-            - **字典练习**：合并字典 `merge_dicts()`
-            - **OOP练习**：ToDo 列表类 `ToDo`
-            - **函数练习**：展平列表 `flatten_list_once()`
-            
-            ### 🚀 快速开始
+            ### Usage
             ```bash
             git clone https://github.com/Asunald/practice_pytest_TDD.git
             pip install -r requirements.txt
             pytest tests/test_all.py -v
             ```
             
-            ### 📊 技术栈
+            ### Requirements
             - Python 3.10+
-            - PyTest 测试框架
-            - GitHub Actions CI/CD
+            - PyTest framework
             
-            ---
-            *PyTest & TDD 练习项目*
+            All tests passing ✓
           draft: false
           prerelease: false

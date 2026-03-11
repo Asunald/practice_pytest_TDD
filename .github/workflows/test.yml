@@ -1,4 +1,4 @@
-name: Test Python Exercises
+name: Python Exercises Tests
 
 on:
   push:

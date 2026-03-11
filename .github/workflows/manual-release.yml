@@ -1,0 +1,81 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies and run tests
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          cd session-4
+          pip install -r requirements.txt
+          pytest tests/test_all.py -v
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          name: PyTest TDD Practice ${{ github.event.inputs.version }}
+          body: |
+            ## 🎯 PyTest TDD 练习项目 - ${{ github.event.inputs.version }}
+            
+            ### ✅ 测试状态
+            所有 6 个测试用例通过！
+            
+            ### 📚 项目内容
+            - **列表练习**：查找重复元素 `find_duplicates()`
+            - **集合练习**：差集运算 `difference_set()`
+            - **元组练习**：元素平方 `square_tuple()`
+            - **字典练习**：合并字典 `merge_dicts()`
+            - **OOP练习**：ToDo 列表类 `ToDo`
+            - **函数练习**：展平列表 `flatten_list_once()`
+            
+            ### 🚀 快速开始
+            ```bash
+            # 下载并解压 release
+            # 或者克隆仓库
+            git clone https://github.com/Asunald/practice_pytest_TDD.git
+            cd practice_pytest_TDD/session-4
+            
+            # 安装依赖
+            pip install -r requirements.txt
+            
+            # 运行测试
+            pytest tests/test_all.py -v
+            
+            # 查看代码
+            cat practice_pytest_TDD.py
+            ```
+            
+            ### 📊 技术栈
+            - Python 3.10+
+            - PyTest 测试框架
+            - GitHub Actions CI/CD
+            
+            ### 🎓 学习目标
+            - 掌握 PyTest 基础用法
+            - 理解测试驱动开发 (TDD)
+            - 学习 CI/CD 自动化流程
+            
+            ---
+            *手动创建的发布版本*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

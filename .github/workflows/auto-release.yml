@@ -39,16 +39,14 @@ jobs:
           echo "Generated version: $VERSION"
           
       - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.version.outputs.version }}
-          release_name: PyTest TDD Practice ${{ steps.version.outputs.version }}
+          name: PyTest TDD Practice ${{ steps.version.outputs.version }}
           body: |
             ## 🎯 PyTest TDD 练习项目
             
-            **发布时间：** $(date +'%Y-%m-%d %H:%M:%S')
+            **发布时间：** ${{ steps.version.outputs.version }}
             
             ### ✅ 测试状态
             所有 6 个测试用例通过！
@@ -83,3 +81,5 @@ jobs:
             *此版本由 GitHub Actions 自动生成和发布*
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
